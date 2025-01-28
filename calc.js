@@ -5,15 +5,22 @@ let	divide = (a, b) => a / b;
 
 function	operate(op, a, b)
 {
+	let	res = 0;
 	if (op === "+")
-		add(a, b);
+		res = add(a, b);
 	else if (op === "-")
-		substract(a, b);
+		res = substract(a, b);
 	else if (op === "*")
-		multiply(a, b);
+		res = multiply(a, b);
 	else if (op === "/")
-		divide(a, b);
+		res = divide(a, b);
 	else
 		console.log("We did not recognize your operator");
-
+	return (res);
 }
+
+console.log(operate("+", 1, 3));
+console.log(operate("-", 1, 3));
+console.log(operate("*", 1, 3));
+console.log(operate("/", 1, 3));
+console.log(operate("/", 1, 0));
