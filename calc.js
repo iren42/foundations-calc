@@ -19,8 +19,21 @@ function	operate(op, a, b)
 	return (res);
 }
 
-console.log(operate("+", 1, 3));
-console.log(operate("-", 1, 3));
-console.log(operate("*", 1, 3));
-console.log(operate("/", 1, 3));
-console.log(operate("/", 1, 0));
+// console.log(operate("+", 1, 3));
+// console.log(operate("-", 1, 3));
+// console.log(operate("*", 1, 3));
+// console.log(operate("/", 1, 3));
+// console.log(operate("/", 1, 0));
+const	digits = document.querySelectorAll(".digit");
+const	operators = document.querySelectorAll(".operator");
+const	display = document.querySelector(".display");
+
+function	modifyDisplay(event)
+{
+	display.textContent += event.target.textContent;
+}
+
+digits.forEach(item => {
+	addEventListener("click", modifyDisplay);
+
+});
