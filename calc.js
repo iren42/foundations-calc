@@ -23,6 +23,48 @@ const	digits = document.querySelector(".digits");
 const	operators = document.querySelector(".operators");
 const	display = document.querySelector(".display");
 
+const	ops = ["+", "-", "*", "/"];
+
+// level2 op = * and /
+function	hasLevelTwoOp(str)
+{
+	if (str.includes("*"))
+	{
+		console.log("win");
+		return (true);
+	}
+	return (false);
+}
+
+function	parseDisplay(str)
+{
+	let	a = 0;
+	let	b = 0;
+	let res = 0;
+	let	i = 0;
+
+	const	splitAdd = str.split("+");
+
+	if (hasLevelTwoOp(splitAdd))
+	{
+		const	splitMult = splitAdd.split("*");
+		console.log(splitMult);
+		// operate("*", a, b);
+
+	}
+	a = 0;
+	while (i < splitAdd.length)
+	{
+		b = splitAdd[i].split("");
+		console.log(b);
+		// remember previous value
+		a = operate("+", Number(a), Number(b));
+		i++;
+	}
+	console.log(a);
+
+}
+
 function	modifyDisplay(event)
 {
 	if (event.target.matches(".digit"))
@@ -32,6 +74,14 @@ function	modifyDisplay(event)
 	else if (event.target.matches(".operator"))
 	{
 		display.textContent += event.target.textContent;
+	}
+	else if (event.target.matches(".equals"))
+	{
+		parseDisplay(display.textContent);
+	}
+	else if (event.target.matches(".clear"))
+	{
+		display.textContent = "";
 	}
 }
 
