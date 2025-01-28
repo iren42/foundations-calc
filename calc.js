@@ -19,20 +19,20 @@ function	operate(op, a, b)
 	return (res);
 }
 
-// console.log(operate("+", 1, 3));
-// console.log(operate("-", 1, 3));
-// console.log(operate("*", 1, 3));
-// console.log(operate("/", 1, 3));
-// console.log(operate("/", 1, 0));
 const	digits = document.querySelector(".digits");
 const	operators = document.querySelector(".operators");
 const	display = document.querySelector(".display");
 
+function	isDigitBtn(str)
+{
+	return (str >= "0" && str <= "9");
+}
 function	modifyDisplay(event)
 {
-	event.stopImmediatePropagation();
-	event.stopPropagation();
-	display.textContent += event.target.textContent;
+	// event.stopImmediatePropagation();
+	// event.stopPropagation(); // DOES NOTHING, WHY?
+	if (isDigitBtn(event.target.textContent))
+		display.textContent += event.target.textContent;
 }
 
 digits.addEventListener("click", modifyDisplay);
