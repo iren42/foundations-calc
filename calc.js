@@ -24,16 +24,16 @@ function	operate(op, a, b)
 // console.log(operate("*", 1, 3));
 // console.log(operate("/", 1, 3));
 // console.log(operate("/", 1, 0));
-const	digits = document.querySelectorAll(".digit");
-const	operators = document.querySelectorAll(".operator");
+const	digits = document.querySelector(".digits");
+const	operators = document.querySelector(".operators");
 const	display = document.querySelector(".display");
 
 function	modifyDisplay(event)
 {
+	event.stopImmediatePropagation();
+	event.stopPropagation();
 	display.textContent += event.target.textContent;
 }
 
-digits.forEach(item => {
-	addEventListener("click", modifyDisplay);
-
-});
+digits.addEventListener("click", modifyDisplay);
+operators.addEventListener("click", modifyDisplay);
