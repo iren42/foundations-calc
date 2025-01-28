@@ -23,17 +23,17 @@ const	digits = document.querySelector(".digits");
 const	operators = document.querySelector(".operators");
 const	display = document.querySelector(".display");
 
-function	isDigitBtn(str)
-{
-	return (str >= "0" && str <= "9");
-}
 function	modifyDisplay(event)
 {
-	// event.stopImmediatePropagation();
-	// event.stopPropagation(); // DOES NOTHING, WHY?
-	if (isDigitBtn(event.target.textContent))
+	if (event.target.matches(".digit"))
+	{
 		display.textContent += event.target.textContent;
+	}
+	else if (event.target.matches(".operator"))
+	{
+		display.textContent += event.target.textContent;
+	}
 }
 
-digits.addEventListener("click", modifyDisplay);
-operators.addEventListener("click", modifyDisplay);
+document.addEventListener("click", modifyDisplay);
+//operators.addEventListener("click", modifyDisplay);
