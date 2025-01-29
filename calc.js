@@ -30,44 +30,56 @@ function	hasLevelTwoOp(str)
 	return (false);
 }
 
+function	operateLevelTwo(str)
+{
+
+	let	a = 1; // initial value for multiplications
+	let	j = -1;
+	const	arrTimes = str.split("*");
+
+	while (++j < arrTimes.length)
+	{
+		b = Number(arrTimes[j]);
+		a = operate(multiply, a, b);
+	}
+	return (a);
+}
+
+function	operateLevelOne(arr)
+{
+	let b = 0;
+	let	a = 0;
+	let i = -1;
+
+	while (++i < arr.length)
+	{
+		b = Number(arr[i]);
+		a = operate(add, a, b);
+	}
+	return (a);
+}
+
 function	parseDisplay(str)
 {
-	let	a = 0;
-	let	b = 0;
 	let total = 0;
 	let	i = 0;
 	let	j = -1;
 
 	const	arrPlus = str.split("+");
 	console.log(arrPlus);
-	i = 0;
-	while (i < arrPlus.length)
+	i = -1;
+	while (++i < arrPlus.length)
 	{
 		if (hasLevelTwoOp(arrPlus[i]))
 		{
-			const	arrTimes = arrPlus[i].split("*");
-			j = -1;
-			a = 1;
-			while (++j < arrTimes.length)
-			{
-				b = Number(arrTimes[j]);
-				a = operate(multiply, a, b);
-			}
+			total = operateLevelTwo(arrPlus[i]);
+			console.log(total.toString());
+			arrPlus.splice(i, 1, total.toString());
 		}
-		i++;
 	}
-	// else
-	// 	a = 0;
-	// i = 0;
-	// while (i < arrPlus.length)
-	// {
-	// 	b = arrPlus[i].split("");
-	// 	console.log(b);
-	// 	// remember previous value
-	// 	a = operate("+", Number(a), Number(b));
-	// 	i++;
-	// }
-	console.log("Result: " + a);
+	console.log(arrPlus);
+	total = operateLevelOne(arrPlus);
+	console.log("Result: " + total);
 
 }
 
