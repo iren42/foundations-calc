@@ -3,20 +3,14 @@ let	substract = (a, b) => a - b;
 let	multiply = (a, b) => a * b;
 let	divide = (a, b) => a / b;
 
-function	operate(op, a, b)
+function	operate(opCallback, a, b)
 {
-	let	res = 0;
-	if (op === "+")
-		res = add(a, b);
-	else if (op === "-")
-		res = substract(a, b);
-	else if (op === "*")
-		res = multiply(a, b);
-	else if (op === "/")
-		res = divide(a, b);
-	else
-		console.log("We did not recognize your operator");
-	return (res);
+	if (typeof a !== "number" || typeof b !== "number")
+	{
+		a = Number(a);
+		b = Number(b);
+	}
+	return (opCallback(a, b));
 }
 
 const	digits = document.querySelector(".digits");
@@ -25,12 +19,12 @@ const	display = document.querySelector(".display");
 
 const	ops = ["+", "-", "*", "/"];
 
-// level2 op = * and /
+// level 2 operations are * and /
 function	hasLevelTwoOp(str)
 {
+	// let	str = arr.join("");
 	if (str.includes("*"))
 	{
-		console.log("win");
 		return (true);
 	}
 	return (false);
@@ -40,28 +34,40 @@ function	parseDisplay(str)
 {
 	let	a = 0;
 	let	b = 0;
-	let res = 0;
+	let total = 0;
 	let	i = 0;
+	let	j = -1;
 
-	const	splitAdd = str.split("+");
-
-	if (hasLevelTwoOp(splitAdd))
+	const	arrPlus = str.split("+");
+	console.log(arrPlus);
+	i = 0;
+	while (i < arrPlus.length)
 	{
-		const	splitMult = splitAdd.split("*");
-		console.log(splitMult);
-		// operate("*", a, b);
-
-	}
-	a = 0;
-	while (i < splitAdd.length)
-	{
-		b = splitAdd[i].split("");
-		console.log(b);
-		// remember previous value
-		a = operate("+", Number(a), Number(b));
+		if (hasLevelTwoOp(arrPlus[i]))
+		{
+			const	arrTimes = arrPlus[i].split("*");
+			j = -1;
+			a = 1;
+			while (++j < arrTimes.length)
+			{
+				b = Number(arrTimes[j]);
+				a = operate(multiply, a, b);
+			}
+		}
 		i++;
 	}
-	console.log(a);
+	// else
+	// 	a = 0;
+	// i = 0;
+	// while (i < arrPlus.length)
+	// {
+	// 	b = arrPlus[i].split("");
+	// 	console.log(b);
+	// 	// remember previous value
+	// 	a = operate("+", Number(a), Number(b));
+	// 	i++;
+	// }
+	console.log("Result: " + a);
 
 }
 
