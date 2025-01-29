@@ -30,7 +30,7 @@ function	hasLevelTwoOp(str)
 	return (false);
 }
 
-function	operateLevelTwo(str, arrOp)
+function	calcLevelTwo(str, arrOp)
 {
 	let b = 0;
 	let	a = 0;
@@ -54,7 +54,7 @@ function	operateLevelTwo(str, arrOp)
 }
 
 // level 1 operations are + and -
-function	operateLevelOne(arrOperands, arrOp)
+function	calcLevelOne(arrOperands, arrOp)
 {
 	let b = 0;
 	let	a = 0;
@@ -102,29 +102,30 @@ function	createMDArray(str)
 	return (res);
 }
 
-function	parseDisplay(str)
+function	calculate(arrOperands, arrOperatorsLv1)
 {
 	let total = 0;
-	let	i = 0;
-	const	arrOrderedPlusMinus = createPMArray(str);
-	const	arrGroupedMulDiv = str.split("+").join("-").split("-");
+	let	i = -1;
 
-	console.log(arrGroupedMulDiv);
-	i = -1;
-	while (++i < arrGroupedMulDiv.length)
+	while (++i < arrOperands.length)
 	{
-		let	arrOrderedMulDiv = createMDArray(arrGroupedMulDiv[i]);
-		if (arrOrderedMulDiv.length != 0)
+		let	arrOperatorsLv2 = createMDArray(arrOperands[i]);
+		if (arrOperatorsLv2.length != 0)
 		{
-			total = operateLevelTwo(arrGroupedMulDiv[i], arrOrderedMulDiv);
-			console.log(total.toString());
-			arrGroupedMulDiv.splice(i, 1, total.toString());
+			total = calcLevelTwo(arrOperands[i], arrOperatorsLv2);
+			arrOperands.splice(i, 1, total.toString());
 		}
 	}
-	console.log(arrGroupedMulDiv);
-	total = operateLevelOne(arrGroupedMulDiv, arrOrderedPlusMinus);
-	console.log("Result: " + total);
+	total = calcLevelOne(arrOperands, arrOperatorsLv1);
+	return (total);
+}
 
+function	parseAndCalc(str)
+{
+	const	arrOperatorsLv1 = createPMArray(str);
+	const	arrOperands = str.split("+").join("-").split("-");
+
+	return (calculate(arrOperands, arrOperatorsLv1));
 }
 
 function	modifyDisplay(event)
@@ -139,7 +140,7 @@ function	modifyDisplay(event)
 	}
 	else if (event.target.matches(".equals"))
 	{
-		parseDisplay(display.textContent);
+		display.textContent = parseAndCalc(display.textContent);
 	}
 	else if (event.target.matches(".clear"))
 	{
