@@ -22,6 +22,8 @@ function	calcLevelTwo(str, arrOp)
 	let	buffer = 0;
 	const	arrOperands = str.split("*").join("/").split("/");
 
+	if (arrOp.length + 1 != arrOperands.length)
+		return (ERROR_MSG);
 	while (arrOperands.length > 1 && arrOp.length != 0)
 	{
 		a = Number(arrOperands[0]);
@@ -61,11 +63,17 @@ function	calcLevelOne(arrOperands, arrOp)
 	return (arrOperands[0]);
 }
 
-function	createPMArray(str)
+function	createPMArray(str = "")
 {
 	let	res = [];
 	let	i = -1;
 
+	// in case the first number is negative
+	if (str.length != 0)
+	{
+		if (str[0] === "-")
+			i++;
+	}
 	while (++i < str.length)
 	{
 		if (str[i] === "+" || str[i] === "-")
@@ -95,8 +103,6 @@ function	calculate(arrOperands, arrOperatorsLv1)
 	while (++i < arrOperands.length)
 	{
 		let	arrOperatorsLv2 = createMDArray(arrOperands[i]);
-		if (arrOperatorsLv2 + 1 != arrOperands[i].length)
-			return (ERROR_MSG);
 		if (arrOperatorsLv2.length != 0)
 		{
 			total = calcLevelTwo(arrOperands[i], arrOperatorsLv2);
@@ -111,6 +117,18 @@ function	parseAndCalc(str)
 {
 	const	arrOperatorsLv1 = createPMArray(str);
 	const	arrOperands = str.split("+").join("-").split("-");
+	// in case the first operand is negative
+	if (arrOperands.length > 1)
+	{
+		if (arrOperands[0] === "")
+		{
+			arrOperands.shift();
+			let m = "-";
+			arrOperands[0] = m.concat(arrOperands[0]);
+		}
+	}
+	console.table(arrOperands);
+	console.table(arrOperatorsLv1);
 
 	if (arrOperatorsLv1.length + 1 != arrOperands.length)
 		return (ERROR_MSG);
