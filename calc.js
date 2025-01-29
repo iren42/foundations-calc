@@ -22,8 +22,16 @@ function	calcLevelTwo(str, arrOp)
 	let	buffer = 0;
 	const	arrOperands = str.split("*").join("/").split("/");
 
+	// in case the first number is negative
 	if (arrOp.length + 1 != arrOperands.length)
 		return (ERROR_MSG);
+	// in case the last char is an operator
+	if (arrOperands.length > 0)
+	{
+		console.log(arrOperands[arrOperands.length - 1] === "")
+		if (arrOperands[arrOperands.length - 1] === "")
+			return (ERROR_MSG);
+	}
 	while (arrOperands.length > 1 && arrOp.length != 0)
 	{
 		a = Number(arrOperands[0]);
@@ -106,6 +114,8 @@ function	calculate(arrOperands, arrOperatorsLv1)
 		if (arrOperatorsLv2.length != 0)
 		{
 			total = calcLevelTwo(arrOperands[i], arrOperatorsLv2);
+			if (total === ERROR_MSG)
+				return (ERROR_MSG);
 			arrOperands.splice(i, 1, total.toString());
 		}
 	}
@@ -117,15 +127,21 @@ function	parseAndCalc(str)
 {
 	const	arrOperatorsLv1 = createPMArray(str);
 	const	arrOperands = str.split("+").join("-").split("-");
+
 	// in case the first operand is negative
 	if (arrOperands.length > 1)
 	{
 		if (arrOperands[0] === "")
 		{
 			arrOperands.shift();
-			let m = "-";
-			arrOperands[0] = m.concat(arrOperands[0]);
+			arrOperands[0] = "-".concat(arrOperands[0]);
 		}
+	}
+	// in case the last char is an operator
+	if (arrOperands.length > 0)
+	{
+		if (arrOperands[arrOperands.length - 1] === "")
+			return (ERROR_MSG);
 	}
 	console.table(arrOperands);
 	console.table(arrOperatorsLv1);
