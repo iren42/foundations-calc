@@ -30,37 +30,53 @@ function	hasLevelTwoOp(str)
 	return (false);
 }
 
-function	operateLevelTwo(str)
+function	operateLevelTwo(str, arrOp)
 {
 	let b = 0;
-	let	a = 1; // initial value for multiplications
-	let	j = -1;
-	const	arrTimes = str.split("*");
+	let	a = 0;
+	let	buffer = 0;
+	const	arrOperands = str.split("*").join("/").split("/");
 
-	while (++j < arrTimes.length)
+	while (arrOperands.length > 1 && arrOp.length != 0)
 	{
-		b = Number(arrTimes[j]);
-		a = operate(multiply, a, b);
+		a = Number(arrOperands[0]);
+		b = Number(arrOperands[1]);
+		if (arrOp[0] === "*")
+			buffer = operate(multiply, a, b);
+		else
+			buffer = operate(divide, a, b);
+		arrOp.shift();
+		arrOperands.shift();
+		arrOperands.shift();
+		arrOperands.unshift(buffer);
 	}
-	return (a);
+	return (arrOperands[0]);
 }
 
 // level 1 operations are + and -
-function	operateLevelOne(arr)
+function	operateLevelOne(arrOperands, arrOp)
 {
 	let b = 0;
-	let	a = 0; // inital value for additions and substractions
-	let i = -1;
+	let	a = 0;
+	let	buffer = 0;
 
-	while (++i < arr.length)
+	while (arrOperands.length > 1 && arrOp.length != 0)
 	{
-		b = Number(arr[i]);
-		a = operate(add, a, b);
+		a = Number(arrOperands[0]);
+		b = Number(arrOperands[1]);
+		if (arrOp[0] === "+")
+			buffer = operate(add, a, b);
+		else
+			buffer = operate(substract, a, b);
+		arrOp.shift();
+		arrOperands.shift();
+		arrOperands.shift();
+		arrOperands.unshift(buffer);
 	}
-	return (a);
+	return (arrOperands[0]);
 }
 
-function	createPlusMinusArray(str)
+function	createPMArray(str)
 {
 	let	res = [];
 	let	i = -1;
@@ -73,26 +89,40 @@ function	createPlusMinusArray(str)
 	return (res);
 }
 
+function	createMDArray(str)
+{
+	let	res = [];
+	let	i = -1;
+
+	while (++i < str.length)
+	{
+		if (str[i] === "*" || str[i] === "/")
+			res.push(str[i]);
+	}
+	return (res);
+}
+
 function	parseDisplay(str)
 {
 	let total = 0;
 	let	i = 0;
-	const	arrOrderedPlusMinus = createPlusMinusArray(str);
-	const	arrSplitOnPlusMinus = str.split("+").join("-").split("-");
+	const	arrOrderedPlusMinus = createPMArray(str);
+	const	arrGroupedMulDiv = str.split("+").join("-").split("-");
 
-	console.log(arrSplitOnPlusMinus);
+	console.log(arrGroupedMulDiv);
 	i = -1;
-	while (++i < arrSplitOnPlusMinus.length)
+	while (++i < arrGroupedMulDiv.length)
 	{
-		if (hasLevelTwoOp(arrSplitOnPlusMinus[i]))
+		let	arrOrderedMulDiv = createMDArray(arrGroupedMulDiv[i]);
+		if (arrOrderedMulDiv.length != 0)
 		{
-			total = operateLevelTwo(arrSplitOnPlusMinus[i]);
+			total = operateLevelTwo(arrGroupedMulDiv[i], arrOrderedMulDiv);
 			console.log(total.toString());
-			arrSplitOnPlusMinus.splice(i, 1, total.toString());
+			arrGroupedMulDiv.splice(i, 1, total.toString());
 		}
 	}
-	console.log(arrSplitOnPlusMinus);
-	total = operateLevelOne(arrSplitOnPlusMinus);
+	console.log(arrGroupedMulDiv);
+	total = operateLevelOne(arrGroupedMulDiv, arrOrderedPlusMinus);
 	console.log("Result: " + total);
 
 }
