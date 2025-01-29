@@ -13,23 +13,8 @@ function	operate(opCallback, a, b)
 	return (opCallback(a, b));
 }
 
-const	digits = document.querySelector(".digits");
-const	operators = document.querySelector(".operators");
-const	display = document.querySelector(".display");
-
-const	ops = ["+", "-", "*", "/"];
 
 // level 2 operations are * and /
-function	hasLevelTwoOp(str)
-{
-	// let	str = arr.join("");
-	if (str.includes("*"))
-	{
-		return (true);
-	}
-	return (false);
-}
-
 function	calcLevelTwo(str, arrOp)
 {
 	let b = 0;
@@ -148,5 +133,7 @@ function	modifyDisplay(event)
 	}
 }
 
+const	display = document.querySelector(".display");
+
+const	ops = ["+", "-", "*", "/"];
 document.addEventListener("click", modifyDisplay);
-//operators.addEventListener("click", modifyDisplay);
