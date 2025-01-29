@@ -32,7 +32,7 @@ function	hasLevelTwoOp(str)
 
 function	operateLevelTwo(str)
 {
-
+	let b = 0;
 	let	a = 1; // initial value for multiplications
 	let	j = -1;
 	const	arrTimes = str.split("*");
@@ -45,10 +45,11 @@ function	operateLevelTwo(str)
 	return (a);
 }
 
+// level 1 operations are + and -
 function	operateLevelOne(arr)
 {
 	let b = 0;
-	let	a = 0;
+	let	a = 0; // inital value for additions and substractions
 	let i = -1;
 
 	while (++i < arr.length)
@@ -59,26 +60,39 @@ function	operateLevelOne(arr)
 	return (a);
 }
 
+function	createPlusMinusArray(str)
+{
+	let	res = [];
+	let	i = -1;
+
+	while (++i < str.length)
+	{
+		if (str[i] === "+" || str[i] === "-")
+			res.push(str[i]);
+	}
+	return (res);
+}
+
 function	parseDisplay(str)
 {
 	let total = 0;
 	let	i = 0;
-	let	j = -1;
+	const	arrOrderedPlusMinus = createPlusMinusArray(str);
+	const	arrSplitOnPlusMinus = str.split("+").join("-").split("-");
 
-	const	arrPlus = str.split("+");
-	console.log(arrPlus);
+	console.log(arrSplitOnPlusMinus);
 	i = -1;
-	while (++i < arrPlus.length)
+	while (++i < arrSplitOnPlusMinus.length)
 	{
-		if (hasLevelTwoOp(arrPlus[i]))
+		if (hasLevelTwoOp(arrSplitOnPlusMinus[i]))
 		{
-			total = operateLevelTwo(arrPlus[i]);
+			total = operateLevelTwo(arrSplitOnPlusMinus[i]);
 			console.log(total.toString());
-			arrPlus.splice(i, 1, total.toString());
+			arrSplitOnPlusMinus.splice(i, 1, total.toString());
 		}
 	}
-	console.log(arrPlus);
-	total = operateLevelOne(arrPlus);
+	console.log(arrSplitOnPlusMinus);
+	total = operateLevelOne(arrSplitOnPlusMinus);
 	console.log("Result: " + total);
 
 }
