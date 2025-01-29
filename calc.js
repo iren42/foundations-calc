@@ -95,6 +95,8 @@ function	calculate(arrOperands, arrOperatorsLv1)
 	while (++i < arrOperands.length)
 	{
 		let	arrOperatorsLv2 = createMDArray(arrOperands[i]);
+		if (arrOperatorsLv2 + 1 != arrOperands[i].length)
+			return (ERROR_MSG);
 		if (arrOperatorsLv2.length != 0)
 		{
 			total = calcLevelTwo(arrOperands[i], arrOperatorsLv2);
@@ -109,6 +111,9 @@ function	parseAndCalc(str)
 {
 	const	arrOperatorsLv1 = createPMArray(str);
 	const	arrOperands = str.split("+").join("-").split("-");
+
+	if (arrOperatorsLv1.length + 1 != arrOperands.length)
+		return (ERROR_MSG);
 
 	return (calculate(arrOperands, arrOperatorsLv1));
 }
@@ -133,6 +138,7 @@ function	modifyDisplay(event)
 	}
 }
 
+const	ERROR_MSG = "ERROR!";
 const	display = document.querySelector(".display");
 
 const	ops = ["+", "-", "*", "/"];
