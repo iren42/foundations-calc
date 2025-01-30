@@ -23,8 +23,9 @@ body {
 	display: flex;
 }
 
-.row button {
+button {
 	flex: 1 1 80px;
+	font-size: 18px;
 }
 
 .row .clear,
@@ -32,6 +33,13 @@ body {
 	flex-grow: 6;
 }
 
+.display {
+	border: 1px solid black;
+	justify-content: right;
+	align-items: center;
+	padding-right: 16px;
+	font-size: 24px;
+}
 /* .row .backspace, */
 /* .row .operator { */
 /* 	flex-grow: 1; */
