@@ -152,6 +152,14 @@ function	parseAndCalc(str)
 	return (calculate(arrOperands, arrOperatorsLv1));
 }
 
+function	eraseLastChar(str)
+{
+	const	arr = str.split("");
+
+	arr.pop();
+	return (arr.join());
+}
+
 function	modifyDisplay(event)
 {
 	if (event.target.matches(".digit"))
@@ -169,6 +177,10 @@ function	modifyDisplay(event)
 	else if (event.target.matches(".clear"))
 	{
 		display.textContent = "";
+	}
+	else if (event.target.matches(".backspace"))
+	{
+		display.textContent = eraseLastChar(display.textContent);
 	}
 }
 
