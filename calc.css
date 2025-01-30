@@ -1,0 +1,38 @@
+* {
+	padding: 0;
+	margin: 0
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.calculator {
+	display: flex;
+	flex-direction: column;
+	min-width: 400px;
+	min-height: auto;
+}
+
+.row {
+	flex: 1 1 80px;
+	display: flex;
+}
+
+.row button {
+	flex: 1 1 80px;
+}
+
+.row .clear,
+.row .zero {
+	flex-grow: 6;
+}
+
+/* .row .backspace, */
+/* .row .operator { */
+/* 	flex-grow: 1; */
+/* } */
