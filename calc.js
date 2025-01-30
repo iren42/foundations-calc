@@ -28,7 +28,6 @@ function	calcLevelTwo(str, arrOp)
 	// in case the last char is an operator
 	if (arrOperands.length > 0)
 	{
-		console.log(arrOperands[arrOperands.length - 1] === "")
 		if (arrOperands[arrOperands.length - 1] === "")
 			return (ERROR_MSG);
 	}
@@ -143,9 +142,7 @@ function	parseAndCalc(str)
 		if (arrOperands[arrOperands.length - 1] === "")
 			return (ERROR_MSG);
 	}
-	console.table(arrOperands);
-	console.table(arrOperatorsLv1);
-
+	// in case there's not the right amount of operands and operators
 	if (arrOperatorsLv1.length + 1 != arrOperands.length)
 		return (ERROR_MSG);
 
@@ -162,11 +159,8 @@ function	eraseLastChar(str)
 
 function	modifyDisplay(event)
 {
-	if (event.target.matches(".digit"))
-	{
-		display.textContent += event.target.textContent;
-	}
-	else if (event.target.matches(".operator"))
+	if (event.target.matches(".digit") || event.target.matches(".operator") ||
+		event.target.matches(".dot"))
 	{
 		display.textContent += event.target.textContent;
 	}
