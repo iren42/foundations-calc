@@ -154,7 +154,7 @@ function	eraseLastChar(str)
 	const	arr = str.split("");
 
 	arr.pop();
-	return (arr.join());
+	return (arr.join(""));
 }
 
 function	modifyDisplay(event)
