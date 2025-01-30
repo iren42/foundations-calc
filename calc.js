@@ -76,7 +76,7 @@ function	createPMArray(str = "")
 	let	res = [];
 	let	i = -1;
 
-	// in case the first number is negative
+	// in case the first operand is negative
 	if (str.length != 0)
 	{
 		if (str[0] === "-")
@@ -175,5 +175,4 @@ function	modifyDisplay(event)
 const	ERROR_MSG = "ERROR!";
 const	display = document.querySelector(".display");
 
-const	ops = ["+", "-", "*", "/"];
 document.addEventListener("click", modifyDisplay);
